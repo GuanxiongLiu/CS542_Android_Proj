@@ -1,7 +1,7 @@
 package group2.cs542.wpi.privateaudio;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +14,11 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
- * Created by sylor on 3/7/17.
+ * Created by sylor on 3/8/17.
  */
 
-public class user_login extends Activity {
+public class user_register extends Activity {
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -25,11 +26,10 @@ public class user_login extends Activity {
     private GoogleApiClient client;
     private EditText user_id;
     private EditText user_pwd;
-    private Button login;
+    private EditText user_pwd_re;
+    private Button submit;
     private Button reset;
-    private Button register;
-    private int security_counter = 5;
-
+    private AlertDialog.Builder dlgAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +39,54 @@ public class user_login extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
 
-        user_id = (EditText) findViewById(R.id.login_user_id);
-        user_pwd = (EditText) findViewById(R.id.login_user_pwd);
-        login = (Button) findViewById(R.id.login_bt_login);
-        reset = (Button) findViewById(R.id.login_bt_reset);
-        register = (Button) findViewById(R.id.login_bt_register);
+        user_id = (EditText) findViewById(R.id.register_user_id);
+        user_pwd = (EditText) findViewById(R.id.register_user_pwd);
+        user_pwd_re = (EditText) findViewById(R.id.register_user_pwd_re);
+        submit = (Button) findViewById(R.id.register_bt_submit);
+        reset = (Button) findViewById(R.id.register_bt_reset);
+
+        dlgAlert = new AlertDialog.Builder(this);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
-                if (user_id.getText().toString().equals("admin") && user_pwd.getText().toString().equals("admin")) {
-                    setContentView(R.layout.activity_index);
+                System.out.println(user_id.getText().toString());
+
+                if (user_id.getText().toString().equals("")) {
+                    user_id.getText().clear();
+                    user_pwd.getText().clear();
+                    user_pwd_re.getText().clear();
+                    dlgAlert.setMessage("Empty User Name");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+                }
+                else if (user_pwd.getText().toString().equals("") || user_pwd_re.getText().toString().equals("")) {
+                    user_id.getText().clear();
+                    user_pwd.getText().clear();
+                    user_pwd_re.getText().clear();
+                    dlgAlert.setMessage("Empty Password");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+                }
+                else if (!(user_pwd.getText().toString().equals(user_pwd_re.getText().toString()))) {
+                    user_id.getText().clear();
+                    user_pwd.getText().clear();
+                    user_pwd_re.getText().clear();
+                    dlgAlert.setMessage("Different Password");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
                 }
                 else {
-                    security_counter--;
-                    if (security_counter == 0) {
-                        login.setEnabled(false);
-                        System.out.println("Login Disabled");
-                    }
+                    System.out.println("New user added");
+                    setContentView(R.layout.activity_login);
                 }
             }
         });
@@ -71,26 +97,9 @@ public class user_login extends Activity {
             public void onClick(View v) {
                 user_id.getText().clear();
                 user_pwd.getText().clear();
+                user_pwd_re.getText().clear();
             }
         });
-
-        register.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                launchRegister();
-            }
-        });
-    }
-
-    private void launchIndex() {
-//        Intent intent = new Intent(this, user_index.class);
-//        startActivity(intent);
-    }
-
-    private void launchRegister() {
-        Intent intent = new Intent(this, user_register.class);
-        startActivity(intent);
     }
 
     /**
@@ -99,7 +108,7 @@ public class user_login extends Activity {
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("user_login Page") // TODO: Define a title for the content shown.
+                .setName("user_register Page") // TODO: Define a title for the content shown.
                 // TODO: Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();

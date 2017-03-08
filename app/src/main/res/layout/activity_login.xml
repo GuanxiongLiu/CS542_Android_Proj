@@ -9,7 +9,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/user_id"
+        android:id="@+id/login_user_id"
         android:layout_weight="0.08"
         android:layout_width="300dp"
         android:layout_marginTop="100dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/user_pwd"
+        android:id="@+id/login_user_pwd"
         android:layout_weight="0.08"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
@@ -38,17 +38,22 @@
             android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_login"
-            android:layout_weight="1"
-            android:onClick="login" />
+            android:id="@+id/login_bt_login"
+            android:layout_weight="1" />
 
         <Button
             android:text="Reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_reset"
-            android:layout_weight="1"
-            android:onClick="reset" />
+            android:id="@+id/login_bt_reset"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_bt_register"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>
