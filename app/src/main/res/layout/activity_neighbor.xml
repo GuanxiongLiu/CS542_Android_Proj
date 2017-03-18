@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/neighbor_map"
+        android:layout_weight="0.48"
+        android:layout_height="600dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <CheckBox
+            android:text="Only Friend"
+            android:layout_height="wrap_content"
+            android:id="@+id/neighbor_cb_isfriend"
+            android:layout_width="133dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Distance"
+            android:ems="10"
+            android:id="@+id/neighbor_et_distance"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Tag"
+            android:ems="10"
+            android:id="@+id/neighbor_et_tag"
+            android:layout_weight="1"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <Button
+        android:text="Filtering"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/neighbor_bt_filt"
+        android:layout_weight="0.48" />
+
+</LinearLayout>
