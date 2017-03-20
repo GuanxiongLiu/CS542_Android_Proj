@@ -12,7 +12,7 @@
         android:id="@+id/login_user_id"
         android:layout_weight="0.08"
         android:layout_width="300dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="300dp"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 

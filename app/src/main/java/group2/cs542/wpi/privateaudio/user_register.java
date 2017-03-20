@@ -2,6 +2,7 @@ package group2.cs542.wpi.privateaudio;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -86,7 +87,7 @@ public class user_register extends Activity {
                 }
                 else {
                     System.out.println("New user added");
-                    setContentView(R.layout.activity_login);
+                    launchLogin();
                 }
             }
         });
@@ -100,6 +101,12 @@ public class user_register extends Activity {
                 user_pwd_re.getText().clear();
             }
         });
+    }
+
+
+    private void launchLogin() {
+        Intent intent = new Intent(this, user_login.class);
+        startActivity(intent);
     }
 
     /**

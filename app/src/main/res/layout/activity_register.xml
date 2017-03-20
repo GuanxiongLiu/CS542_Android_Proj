@@ -10,7 +10,7 @@
         android:text="User Name"
         android:ems="10"
         android:id="@+id/register_user_id"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="200dp"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
