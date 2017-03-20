@@ -23,6 +23,7 @@ public class user_index extends Activity {
      */
     private GoogleApiClient client;
     private Button toNeighbor;
+    private Button toSelfpage;
 
 
 
@@ -37,13 +38,22 @@ public class user_index extends Activity {
         setContentView(R.layout.activity_index);
 
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
+        toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
 
 
         toNeighbor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("clicked");
+                System.out.println("go neighbor");
                 launchNeighbor();
+            }
+        });
+
+        toSelfpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("go selfpage");
+                launchSelfpage();
             }
         });
 
@@ -52,6 +62,11 @@ public class user_index extends Activity {
 
     private void launchNeighbor() {
         Intent intent = new Intent(this, list_neighbor.class);
+        startActivity(intent);
+    }
+
+    private void launchSelfpage() {
+        Intent intent = new Intent(this, list_selfpage.class);
         startActivity(intent);
     }
 

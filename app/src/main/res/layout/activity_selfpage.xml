@@ -6,7 +6,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="369dp"
+        android:layout_height="300dp"
         android:layout_weight="0.08">
 
         <LinearLayout
@@ -21,14 +21,11 @@
         android:layout_height="wrap_content"
         android:text="Insert the tag" />
 
-    <EditText
-        android:id="@+id/selfpage_date"
+    <DatePicker
+        android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
-        android:ems="10"
-        android:inputType="date"
-        android:text="Insert the date" />
+        android:layout_weight="0.08" />
 
     <LinearLayout
         android:layout_width="match_parent"

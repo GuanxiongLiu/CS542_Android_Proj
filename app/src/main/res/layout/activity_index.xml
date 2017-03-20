@@ -17,4 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/index_bt_toNeighbor" />
+
+    <Button
+        android:id="@+id/index_bt_toSelfpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check Self Audio" />
 </LinearLayout>

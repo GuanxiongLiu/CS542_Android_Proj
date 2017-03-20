@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CS542_Android_Proj.iml" filepath="$PROJECT_DIR$/CS542_Android_Proj.iml" />
       <module fileurl="file://$PROJECT_DIR$/PrivateAudio.iml" filepath="$PROJECT_DIR$/PrivateAudio.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

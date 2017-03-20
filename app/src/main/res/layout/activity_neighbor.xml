@@ -5,49 +5,59 @@
     android:weightSum="1">
 
     <fragment
-        android:layout_width="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/neighbor_map"
-        android:layout_weight="0.48"
-        android:layout_height="600dp" />
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_weight="0.48" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="0.48">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <CheckBox
-            android:text="Only Friend"
-            android:layout_height="wrap_content"
             android:id="@+id/neighbor_cb_isfriend"
-            android:layout_width="133dp" />
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:text="Only Friend" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Distance"
-            android:ems="10"
             android:id="@+id/neighbor_et_distance"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Tag"
-            android:ems="10"
-            android:id="@+id/neighbor_et_tag"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Distance" />
+
+        <EditText
+            android:id="@+id/neighbor_et_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Tag" />
     </LinearLayout>
 
     <Button
-        android:text="Filtering"
+        android:id="@+id/neighbor_bt_filt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/neighbor_bt_filt"
-        android:layout_weight="0.48" />
+        android:text="Filtering" />
 
 </LinearLayout>
