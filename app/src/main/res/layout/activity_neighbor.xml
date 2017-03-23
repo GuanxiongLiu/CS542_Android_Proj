@@ -27,7 +27,7 @@
             android:id="@+id/neighbor_cb_isfriend"
             android:layout_width="133dp"
             android:layout_height="wrap_content"
-            android:text="Only Friend" />
+            android:text="Only Friends" />
 
         <EditText
             android:id="@+id/neighbor_et_distance"
@@ -54,6 +54,6 @@
         android:id="@+id/neighbor_bt_filt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filtering" />
+        android:text="Filter" />
 
 </LinearLayout>
