@@ -24,6 +24,7 @@ public class user_index extends Activity {
     private GoogleApiClient client;
     private Button toNeighbor;
     private Button toSelfpage;
+    private Button toFriends;
 
 
 
@@ -39,6 +40,7 @@ public class user_index extends Activity {
 
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
         toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
+        toFriends  = (Button) findViewById(R.id.index_bt_toFriend);
 
 
         toNeighbor.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,14 @@ public class user_index extends Activity {
             }
         });
 
+        toFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("go friend");
+                launchFriends();
+            }
+        });
+
     }
 
 
@@ -67,6 +77,11 @@ public class user_index extends Activity {
 
     private void launchSelfpage() {
         Intent intent = new Intent(this, list_selfpage.class);
+        startActivity(intent);
+    }
+
+    private void launchFriends() {
+        Intent intent = new Intent(this, list_friends.class);
         startActivity(intent);
     }
 
