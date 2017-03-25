@@ -4,13 +4,15 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Login Successfully"
+        android:id="@+id/index_tv_title"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:id="@+id/temp_use"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:layout_gravity="center_horizontal" />
+        android:text="Welcome"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:text="Check Near By Audio"
