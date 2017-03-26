@@ -5,10 +5,10 @@
     android:weightSum="1">
 
     <ScrollView
+        android:id="@+id/friend_sv_list"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_weight="0.08">
-
 
     </ScrollView>
 

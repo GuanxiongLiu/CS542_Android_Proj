@@ -2,6 +2,7 @@ package group2.cs542.wpi.privateaudio;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ScrollView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -28,6 +30,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import group2.cs542.wpi.privateaudio.database.DBOperator;
+import group2.cs542.wpi.privateaudio.database.SQLCommand;
+import group2.cs542.wpi.privateaudio.view.TableView;
+
 /**
  * Created by sylor on 3/17/17.
  */
@@ -44,16 +50,38 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mapHandle;
     private LocationRequest mLocationRequest;
     private Marker currentMaker;
+    private String user_name;
+    private String user_uid;
+    private ScrollView list_view;
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng HomeLoc = new LatLng(42.2746373, -71.8085277);
-        currentMaker = googleMap.addMarker(new MarkerOptions()
-                                            .position(HomeLoc)
-                                            .title("Initial"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HomeLoc, (float) 14.0));
+        LatLng HomeLoc = new LatLng(42.2, -71.8);
+//        currentMaker = googleMap.addMarker(new MarkerOptions()
+//                                            .position(HomeLoc)
+//                                            .title("Initial"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HomeLoc, (float) 12.0));
         mapHandle = googleMap;
+
+        // init query
+        String init_args[] = new String[2];
+        init_args[0] = user_uid;
+        init_args[1] = user_uid;
+        Cursor init_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Audio, init_args);
+        list_view.addView(new TableView(this.getBaseContext(),init_res));
+        // get marker locations
+        Cursor init_marker = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Marker, init_args);
+        while (init_marker.moveToNext()) {
+            float lat, lng;
+            lat = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.latitude")));
+            lng = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.longitude")));
+            LatLng MarkerLoc = new LatLng(lat, lng);
+            googleMap.addMarker(new MarkerOptions()
+                                .position(MarkerLoc)
+                                .title("Initial"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
+        }
     }
 
     @Override
@@ -69,6 +97,11 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
                 .addApi(AppIndex.API).build();
 
         setContentView(R.layout.activity_neighbor);
+        user_name = getIntent().getStringExtra("User Name");
+        user_uid = getIntent().getStringExtra("User UID");
+        System.out.println(user_uid);
+
+        list_view = (ScrollView) findViewById(R.id.neighbor_sv_list);
 
         mapF = (MapFragment) getFragmentManager().findFragmentById(R.id.neighbor_map);
         mapF.getMapAsync(this);
@@ -151,11 +184,11 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     public void onLocationChanged(Location location) {
         lastLoc = location;
         LatLng center = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-        mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(center, (float) 14.0));
+        mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(center, (float) 12.0));
 
-        currentMaker.remove();
-        currentMaker = mapHandle.addMarker(new MarkerOptions()
-                .position(center)
-                .title("Current"));
+//        currentMaker.remove();
+//        currentMaker = mapHandle.addMarker(new MarkerOptions()
+//                .position(center)
+//                .title("Current"));
     }
 }

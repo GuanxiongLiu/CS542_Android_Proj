@@ -2,16 +2,22 @@ package group2.cs542.wpi.privateaudio;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import group2.cs542.wpi.privateaudio.database.DBOperator;
+import group2.cs542.wpi.privateaudio.database.SQLCommand;
 
 /**
  * Created by sylor on 3/7/17.
@@ -30,6 +36,7 @@ public class user_login extends Activity {
     private Button register;
     private int security_counter = 5;
     private String user_name;
+    private String user_uid;
 
 
     @Override
@@ -42,6 +49,11 @@ public class user_login extends Activity {
 
         setContentView(R.layout.activity_login);
 
+        try{
+            DBOperator.copyDB(getBaseContext());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         user_id = (EditText) findViewById(R.id.login_user_id);
         user_pwd = (EditText) findViewById(R.id.login_user_pwd);
@@ -53,8 +65,24 @@ public class user_login extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user_id.getText().toString().equals("admin") && user_pwd.getText().toString().equals("admin")) {
-                    user_name = "Administrator";
+                Cursor res = DBOperator.getInstance().execQuery(SQLCommand.Login_Check, login_args());
+                String num_match = "-1";
+                user_uid = "-1";
+                if (res.moveToFirst()) { // data?
+                    num_match = res.getString(res.getColumnIndex("num_match"));
+                    user_uid = res.getString(res.getColumnIndex("uid"));
+                }
+                res.close(); // that's important too, otherwise you're gonna leak cursors
+
+                if (num_match.equals("1")) {
+                    user_name = user_id.getText().toString();
+                    String currentDate = DateFormat.getDateInstance().format(new Date());
+                    String update_args[] = new String[2];
+                    update_args[0] = currentDate;
+                    update_args[1] = user_uid;
+                    DBOperator.getInstance().execSQL(SQLCommand.Update_Date, update_args);
+                    System.out.println(currentDate);
+
                     launchIndex();
                 }
                 else {
@@ -93,7 +121,17 @@ public class user_login extends Activity {
     private void launchIndex() {
         Intent intent = new Intent(this, user_index.class);
         intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
         startActivity(intent);
+    }
+
+    private String[] login_args() {
+        String args[] = new String[2];
+
+        args[0] = user_id.getText().toString();
+        args[1] = user_pwd.getText().toString();
+
+        return args;
     }
 
     /**

@@ -12,6 +12,7 @@
         android:layout_weight="0.48" />
 
     <ScrollView
+        android:id="@+id/neighbor_sv_list"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_weight="0.48">

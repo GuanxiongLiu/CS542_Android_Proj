@@ -27,6 +27,8 @@ public class user_index extends Activity {
     private Button toNeighbor;
     private Button toSelfpage;
     private Button toFriends;
+    private String user_name;
+    private String user_uid;
 
 
 
@@ -39,10 +41,11 @@ public class user_index extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         setContentView(R.layout.activity_index);
-        String user_name = getIntent().getStringExtra("User Name");
+        user_name = getIntent().getStringExtra("User Name");
+        user_uid = getIntent().getStringExtra("User UID");
 
         title = (TextView) findViewById(R.id.index_tv_title);
-        title.setText("Welcome " + user_name);
+        title.setText("Welcome User " + user_name);
 
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
         toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
@@ -78,16 +81,22 @@ public class user_index extends Activity {
 
     private void launchNeighbor() {
         Intent intent = new Intent(this, list_neighbor.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
         startActivity(intent);
     }
 
     private void launchSelfpage() {
         Intent intent = new Intent(this, list_selfpage.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
         startActivity(intent);
     }
 
     private void launchFriends() {
         Intent intent = new Intent(this, list_friends.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
         startActivity(intent);
     }
 
