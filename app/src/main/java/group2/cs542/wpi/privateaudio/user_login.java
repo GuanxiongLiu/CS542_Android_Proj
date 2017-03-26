@@ -29,6 +29,7 @@ public class user_login extends Activity {
     private Button reset;
     private Button register;
     private int security_counter = 5;
+    private String user_name;
 
 
     @Override
@@ -53,6 +54,7 @@ public class user_login extends Activity {
             @Override
             public void onClick(View v) {
                 if (user_id.getText().toString().equals("admin") && user_pwd.getText().toString().equals("admin")) {
+                    user_name = "Administrator";
                     launchIndex();
                 }
                 else {
@@ -90,6 +92,7 @@ public class user_login extends Activity {
 
     private void launchIndex() {
         Intent intent = new Intent(this, user_index.class);
+        intent.putExtra("User Name", user_name);
         startActivity(intent);
     }
 

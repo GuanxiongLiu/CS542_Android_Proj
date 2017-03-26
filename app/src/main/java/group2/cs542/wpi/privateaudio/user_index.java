@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -22,6 +23,7 @@ public class user_index extends Activity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private TextView title;
     private Button toNeighbor;
     private Button toSelfpage;
     private Button toFriends;
@@ -37,6 +39,10 @@ public class user_index extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         setContentView(R.layout.activity_index);
+        String user_name = getIntent().getStringExtra("User Name");
+
+        title = (TextView) findViewById(R.id.index_tv_title);
+        title.setText("Welcome " + user_name);
 
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
         toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
