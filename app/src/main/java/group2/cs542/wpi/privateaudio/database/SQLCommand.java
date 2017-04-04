@@ -23,18 +23,18 @@ public abstract class SQLCommand {
     // update active user date
     public static String Update_Date = "update active_user set time = ? where uid = ?";
     // init query friend audio
-    public static String Friend_Audio = "select u2.account, v.vid, v.tag, v.time " +
+    public static String Friend_Audio = "select u2.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                         "from user u, user u2, friends f, voice v " +
                                         "where u.uid = f.uid and f.friend = v.uid " +
                                         "and f.friend = u2.uid and u.account = ? " +
                                         "order by v.vid asc;";
     // init query personal audio
-    public static String Self_Audio = "select u.account, v.vid, v.tag, v.time " +
+    public static String Self_Audio = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                       "from user u, voice v " +
                                       "where u.uid = v.uid " +
                                       "and u.account = ?";
     // init query neighbor audio
-    public static String Neighbor_Audio = "select u.account, v.vid, v.tag, v.time " +
+    public static String Neighbor_Audio = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                           "from user u, voice v, active_user a " +
                                           "where u.uid = v.uid and v.latitude - a.latitude <= 2 " +
                                           "and v.longitude - a.longitude <= 2 and a.uid = ? " +

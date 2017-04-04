@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PrivateAudio</string>
+    <string name="account">Account #</string>
+    <string name="coreduedate">Voice ID</string>
+    <string name="voiceid">Voice ID</string>
+    <string name="voicetag">Voice Tag</string>
+    <string name="voicetime">Time</string>
 </resources>

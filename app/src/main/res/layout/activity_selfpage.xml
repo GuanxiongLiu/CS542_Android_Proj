@@ -4,11 +4,58 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/account"
+            android:textColor="#FF00FF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voiceid"
+            android:textColor="#FF00FF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voicetag"
+            android:textColor="#FF00FF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/voicetime"
+            android:textColor="#FF00FF"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
     <ScrollView
         android:id="@+id/selfpage_sv_list"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         android:layout_weight="0.08">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/selfpage_lv_list">
+
+        </ListView>
 
     </ScrollView>
 

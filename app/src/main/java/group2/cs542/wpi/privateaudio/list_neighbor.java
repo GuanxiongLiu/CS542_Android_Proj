@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.SimpleCursorAdapter;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -52,7 +54,7 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     private Marker currentMaker;
     private String user_name;
     private String user_uid;
-    private ScrollView list_view;
+    private ListView list_view;
 
 
     @Override
@@ -69,7 +71,17 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         init_args[0] = user_uid;
         init_args[1] = user_uid;
         Cursor init_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Audio, init_args);
-        list_view.addView(new TableView(this.getBaseContext(),init_res));
+
+        // bind the data to list
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                getApplicationContext(), R.layout.activity_listitem, init_res,
+                new String[] { "acc", "_id", "tag", "time" }, new int[] {
+                R.id.account, R.id.voiceid, R.id.voicetag, R.id.voicetime },
+                SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+
+        // show result
+        list_view.setAdapter(adapter);
+
         // get marker locations
         Cursor init_marker = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Marker, init_args);
         while (init_marker.moveToNext()) {
@@ -101,7 +113,7 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         user_uid = getIntent().getStringExtra("User UID");
         System.out.println(user_uid);
 
-        list_view = (ScrollView) findViewById(R.id.neighbor_sv_list);
+        list_view = (ListView) findViewById(R.id.neighborpage_lv_list);
 
         mapF = (MapFragment) getFragmentManager().findFragmentById(R.id.neighbor_map);
         mapF.getMapAsync(this);
