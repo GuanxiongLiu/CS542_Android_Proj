@@ -59,4 +59,10 @@ public abstract class SQLCommand {
                                            "where u.uid = v.uid and v.latitude - a.latitude <= 2 " +
                                            "and v.longitude - a.longitude <= 2 and a.uid = ? " +
                                            "and u.uid != ?";
+    // filt query neighbor audio
+    public static String Neighbor_Filt = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
+                                         "from user u, voice v, active_user a" +
+                                         "where u.uid = v.uid and u.uid != ? and a.uid = ? and v.tag = ?" +
+                                         "and (v.latitude - a.latitude)*(v.latitude - a.latitude) + " +
+                                         "(v.longitude - a.longitude)*(v.longitude - a.longitude) <= ?";
 }

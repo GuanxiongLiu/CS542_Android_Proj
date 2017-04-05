@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleCursorAdapter;
@@ -22,6 +23,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -59,6 +61,9 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     private String user_uid;
     private ListView list_view;
     private Button back;
+    private Button filt;
+    private EditText dis;
+    private EditText tag;
 
 
     @Override
@@ -120,6 +125,9 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         // find element
         list_view = (ListView) findViewById(R.id.neighborpage_lv_list);
         back = (Button) findViewById(R.id.neighbor_bt_back);
+        filt = (Button) findViewById(R.id.neighbor_bt_filt);
+        dis = (EditText) findViewById(R.id.neighbor_et_dis);
+        tag = (EditText) findViewById(R.id.neighbor_et_tag);
 
         mapF = (MapFragment) getFragmentManager().findFragmentById(R.id.neighbor_map);
         mapF.getMapAsync(this);
@@ -133,6 +141,36 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+        filt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("filtering result");
+                filtResult();
+            }
+        });
+    }
+
+    private void filtResult() {
+        String distance = dis.getText().toString();
+        String tag_context = tag.getText().toString();
+
+        // filt query
+        String filt_args[] = new String[4];
+        filt_args[0] = user_name;
+        filt_args[1] = user_name;
+        filt_args[2] = tag_context;
+        filt_args[3] = distance;
+        Cursor filt_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Filt, filt_args);
+
+        // bind the data to list
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                getApplicationContext(), R.layout.activity_listitem, filt_res,
+                new String[] { "acc", "_id", "tag", "time" }, new int[] {
+                R.id.account, R.id.voiceid, R.id.voicetag, R.id.voicetime },
+                SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+
+        // show result
+        list_view.setAdapter(adapter);
     }
 
     private void launchIndex() {
