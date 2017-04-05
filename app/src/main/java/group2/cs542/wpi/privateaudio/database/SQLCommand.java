@@ -28,6 +28,13 @@ public abstract class SQLCommand {
                                         "where u.uid = f.uid and f.friend = v.uid " +
                                         "and f.friend = u2.uid and u.account = ? " +
                                         "order by v.vid asc;";
+    // filt query friend audio
+    public static String Friend_Filt = "select u2.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
+                                       "from user u, user u2, friends f, voice v " +
+                                       "where u.uid = f.uid and f.friend = v.uid " +
+                                       "and f.friend = u2.uid and u.account = ? " +
+                                       "and u2.account = ? and v.tag = ? " +
+                                       "and v.time = ? order by v.vid asc;";
     // init query personal audio
     public static String Self_Audio = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                       "from user u, voice v " +

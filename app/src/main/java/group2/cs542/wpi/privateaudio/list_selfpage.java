@@ -108,11 +108,11 @@ public class list_selfpage extends Activity {
         filt_args[0] = user_name;
         filt_args[1] = tag_context;
         filt_args[2] = dt;
-        Cursor init_res = DBOperator.getInstance().execQuery(SQLCommand.Self_Filt, filt_args);
+        Cursor filt_res = DBOperator.getInstance().execQuery(SQLCommand.Self_Filt, filt_args);
 
         // bind the data to list
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                getApplicationContext(), R.layout.activity_listitem, init_res,
+                getApplicationContext(), R.layout.activity_listitem, filt_res,
                 new String[] { "acc", "_id", "tag", "time" }, new int[] {
                 R.id.account, R.id.voiceid, R.id.voicetag, R.id.voicetime },
                 SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
