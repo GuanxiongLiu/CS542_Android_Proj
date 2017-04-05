@@ -71,21 +71,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/neighbor_cb_isfriend"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:text="Only Friends" />
-
         <EditText
-            android:id="@+id/neighbor_et_distance"
+            android:id="@+id/neighbor_et_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Distance" />
+            android:text="Name" />
 
         <EditText
             android:id="@+id/neighbor_et_tag"

@@ -59,10 +59,11 @@
 
     </ScrollView>
 
-    <AutoCompleteTextView
-        android:id="@+id/selfpage_tag"
+    <EditText
+        android:id="@+id/selfpage_et_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:text="Tag" />
 
     <DatePicker

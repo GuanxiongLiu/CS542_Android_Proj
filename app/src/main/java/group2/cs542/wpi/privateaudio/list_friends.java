@@ -1,9 +1,13 @@
 package group2.cs542.wpi.privateaudio;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
@@ -20,7 +24,9 @@ import android.widget.SimpleCursorAdapter;
 public class list_friends extends Activity {
 
     private String user_name;
+    private String user_uid;
     private ListView list_view;
+    private Button back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,8 +34,11 @@ public class list_friends extends Activity {
 
         setContentView(R.layout.activity_friends);
         user_name = getIntent().getStringExtra("User Name");
+        user_uid = getIntent().getStringExtra("User UID");
 
+        // find element
         list_view = (ListView) findViewById(R.id.friendpage_lv_list);
+        back = (Button) findViewById(R.id.friends_bt_back);
 
         // init query
         String init_args[] = new String[1];
@@ -46,5 +55,21 @@ public class list_friends extends Activity {
         // show result
         list_view.setAdapter(adapter);
 
+        // setup button on click
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("go index");
+                launchIndex();
+            }
+        });
+
+    }
+
+    private void launchIndex() {
+        Intent intent = new Intent(this, user_index.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
+        startActivity(intent);
     }
 }

@@ -33,6 +33,13 @@ public abstract class SQLCommand {
                                       "from user u, voice v " +
                                       "where u.uid = v.uid " +
                                       "and u.account = ?";
+    // filt query personal audio
+    public static String Self_Filt = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
+                                     "from user u, voice v " +
+                                     "where u.uid = v.uid " +
+                                     "and u.account = ? " +
+                                     "and v.tag = ? " +
+                                     "and v.time = ?";
     // init query neighbor audio
     public static String Neighbor_Audio = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                           "from user u, voice v, active_user a " +

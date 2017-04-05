@@ -1,6 +1,7 @@
 package group2.cs542.wpi.privateaudio;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
@@ -10,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleCursorAdapter;
@@ -55,6 +58,7 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     private String user_name;
     private String user_uid;
     private ListView list_view;
+    private Button back;
 
 
     @Override
@@ -113,11 +117,29 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         user_uid = getIntent().getStringExtra("User UID");
         System.out.println(user_uid);
 
+        // find element
         list_view = (ListView) findViewById(R.id.neighborpage_lv_list);
+        back = (Button) findViewById(R.id.neighbor_bt_back);
 
         mapF = (MapFragment) getFragmentManager().findFragmentById(R.id.neighbor_map);
         mapF.getMapAsync(this);
 
+        // setup button on click
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("go index");
+                launchIndex();
+            }
+        });
+
+    }
+
+    private void launchIndex() {
+        Intent intent = new Intent(this, user_index.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
+        startActivity(intent);
     }
 
 
