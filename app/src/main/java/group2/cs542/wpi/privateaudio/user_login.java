@@ -76,11 +76,26 @@ public class user_login extends Activity {
 
                 if (num_match.equals("1")) {
                     user_name = user_id.getText().toString();
-                    String currentDate = DateFormat.getDateInstance().format(new Date());
+                    Date date = new Date();
+                    String year = String.valueOf(date.getYear()+1900);
+                    String month, day;
+                    if (date.getMonth() < 9) {
+                        month = "0" + String.valueOf(date.getMonth()+1);
+                    }
+                    else {
+                        month = String.valueOf(date.getMonth()+1);
+                    }
+                    if (date.getDate() < 10) {
+                        day = "0" + String.valueOf(date.getDate());
+                    }
+                    else {
+                        day = String.valueOf(date.getDate());
+                    }
+                    String currentDate = year + "-" + month + "-" + day;
                     String update_args[] = new String[2];
-                    update_args[0] = currentDate;
-                    update_args[1] = user_uid;
-                    DBOperator.getInstance().execSQL(SQLCommand.Update_Date, update_args);
+                    update_args[0] = user_uid;
+                    update_args[1] = currentDate;
+                    DBOperator.getInstance().execSQL(SQLCommand.Update_Act, update_args);
                     System.out.println(currentDate);
 
                     launchIndex();

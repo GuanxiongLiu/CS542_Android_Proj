@@ -21,7 +21,8 @@ public abstract class SQLCommand {
     // user login check
     public static String Login_Check = "select uid, count(*) as num_match from user where account = ? and password = ?";
     // update active user date
-    public static String Update_Date = "update active_user set time = ? where uid = ?";
+    public static String Update_Act = "insert into active_user (uid, time) " +
+                                      "values (?, ?)";
     // init query friend audio
     public static String Friend_Audio = "select u2.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
                                         "from user u, user u2, friends f, voice v " +
@@ -61,8 +62,22 @@ public abstract class SQLCommand {
                                            "and u.uid != ?";
     // filt query neighbor audio
     public static String Neighbor_Filt = "select u.account as acc, v.vid as _id, v.tag as tag, v.time as time " +
-                                         "from user u, voice v, active_user a" +
-                                         "where u.uid = v.uid and u.uid != ? and a.uid = ? and v.tag = ?" +
+                                         "from user u, voice v, active_user a " +
+                                         "where u.uid = v.uid and u.uid != ? and a.uid = ? and v.tag = ? " +
                                          "and (v.latitude - a.latitude)*(v.latitude - a.latitude) + " +
                                          "(v.longitude - a.longitude)*(v.longitude - a.longitude) <= ?";
+    // filt query neighbor audio
+    public static String Filt_Marker = "select v.latitude, v.longitude " +
+                                       "from user u, voice v, active_user a " +
+                                       "where u.uid = v.uid and u.uid != ? and a.uid = ? and v.tag = ? " +
+                                       "and (v.latitude - a.latitude)*(v.latitude - a.latitude) + " +
+                                       "(v.longitude - a.longitude)*(v.longitude - a.longitude) <= ?";
+    // get location
+    public static String Get_Location = "select latitude, longitude " +
+                                        "from active_user " +
+                                        "where uid = ?";
+    // update location
+    public static String Update_Loc = "update active_user " +
+                                      "set latitude = ?, longitude = ? " +
+                                      "where uid = ?";
 }

@@ -68,41 +68,7 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng HomeLoc = new LatLng(42.2, -71.8);
-//        currentMaker = googleMap.addMarker(new MarkerOptions()
-//                                            .position(HomeLoc)
-//                                            .title("Initial"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HomeLoc, (float) 12.0));
         mapHandle = googleMap;
-
-        // init query
-        String init_args[] = new String[2];
-        init_args[0] = user_uid;
-        init_args[1] = user_uid;
-        Cursor init_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Audio, init_args);
-
-        // bind the data to list
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                getApplicationContext(), R.layout.activity_listitem, init_res,
-                new String[] { "acc", "_id", "tag", "time" }, new int[] {
-                R.id.account, R.id.voiceid, R.id.voicetag, R.id.voicetime },
-                SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
-
-        // show result
-        list_view.setAdapter(adapter);
-
-        // get marker locations
-        Cursor init_marker = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Marker, init_args);
-        while (init_marker.moveToNext()) {
-            float lat, lng;
-            lat = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.latitude")));
-            lng = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.longitude")));
-            LatLng MarkerLoc = new LatLng(lat, lng);
-            googleMap.addMarker(new MarkerOptions()
-                                .position(MarkerLoc)
-                                .title("Initial"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
-        }
     }
 
     @Override
@@ -171,6 +137,20 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
 
         // show result
         list_view.setAdapter(adapter);
+
+        // get marker locations
+        mapHandle.clear();
+        Cursor filt_marker = DBOperator.getInstance().execQuery(SQLCommand.Filt_Marker, filt_args);
+        while (filt_marker.moveToNext()) {
+            float lat, lng;
+            lat = Float.parseFloat(filt_marker.getString(filt_marker.getColumnIndex("v.latitude")));
+            lng = Float.parseFloat(filt_marker.getString(filt_marker.getColumnIndex("v.longitude")));
+            LatLng MarkerLoc = new LatLng(lat, lng);
+            mapHandle.addMarker(new MarkerOptions()
+                    .position(MarkerLoc)
+                    .title("Initial"));
+//            mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
+        }
     }
 
     private void launchIndex() {
@@ -239,7 +219,53 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        // request location updates
         LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest, this);
+        // update current locations
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(client);
+        updateMap(lastLocation);
+    }
+
+    private void updateMap(Location lastLocation) {
+        // update location
+        String update_args[] = new String[3];
+        update_args[0] = String.valueOf(lastLocation.getLatitude());
+        update_args[1] = String.valueOf(lastLocation.getLongitude());
+        update_args[2] = user_uid;
+        DBOperator.getInstance().execSQL(SQLCommand.Update_Loc, update_args);
+
+        // move camera
+        LatLng center = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+        mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(center, (float) 12.0));
+
+        // init query
+        String init_args[] = new String[2];
+        init_args[0] = user_uid;
+        init_args[1] = user_uid;
+        Cursor init_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Audio, init_args);
+
+        // bind the data to list
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                getApplicationContext(), R.layout.activity_listitem, init_res,
+                new String[] { "acc", "_id", "tag", "time" }, new int[] {
+                R.id.account, R.id.voiceid, R.id.voicetag, R.id.voicetime },
+                SimpleCursorAdapter.IGNORE_ITEM_VIEW_TYPE);
+
+        // show result
+        list_view.setAdapter(adapter);
+
+        // get marker locations
+        Cursor init_marker = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Marker, init_args);
+        while (init_marker.moveToNext()) {
+            float lat, lng;
+            lat = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.latitude")));
+            lng = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.longitude")));
+            LatLng MarkerLoc = new LatLng(lat, lng);
+            mapHandle.addMarker(new MarkerOptions()
+                    .position(MarkerLoc)
+                    .title("Initial"));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
+        }
     }
 
     @Override
@@ -257,6 +283,13 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         lastLoc = location;
         LatLng center = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
         mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(center, (float) 12.0));
+
+        // update location
+        String update_args[] = new String[3];
+        update_args[0] = String.valueOf(lastLoc.getLatitude());
+        update_args[1] = String.valueOf(lastLoc.getLongitude());
+        update_args[2] = user_uid;
+        DBOperator.getInstance().execSQL(SQLCommand.Update_Loc, update_args);
 
 //        currentMaker.remove();
 //        currentMaker = mapHandle.addMarker(new MarkerOptions()
