@@ -44,20 +44,12 @@
     </LinearLayout>
 
 
-    <ScrollView
-        android:id="@+id/friendpage_sv_list"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_weight="0.08">
+        android:layout_height="300dp"
+        android:id="@+id/friendpage_lv_list">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/friendpage_lv_list">
-
-        </ListView>
-
-    </ScrollView>
+    </ListView>
 
 
     <DatePicker

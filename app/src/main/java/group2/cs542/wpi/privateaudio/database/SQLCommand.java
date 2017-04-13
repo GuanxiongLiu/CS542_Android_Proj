@@ -19,7 +19,10 @@ public abstract class SQLCommand {
 //    public static String CHECK_BOOK = "insert into checkout(stid,lbcallnum,coduedate,coreturned) values(?,?,?,?)";
 
     // user login check
-    public static String Login_Check = "select uid, count(*) as num_match from user where account = ? and password = ?";
+    public static String Login_Check = "select uid, count(*) as num_match " +
+                                       "from user " +
+                                       "where account = ? " +
+                                       "and password = ?";
     // update active user date
     public static String Update_Act = "insert into active_user (uid, time) " +
                                       "values (?, ?)";
