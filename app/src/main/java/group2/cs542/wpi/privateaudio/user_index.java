@@ -13,6 +13,9 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import group2.cs542.wpi.privateaudio.database.DBOperator;
+import group2.cs542.wpi.privateaudio.database.SQLCommand;
+
 /**
  * Created by sylor on 3/17/17.
  */
@@ -27,6 +30,7 @@ public class user_index extends Activity {
     private Button toNeighbor;
     private Button toSelfpage;
     private Button toFriends;
+    private Button logout;
     private String user_name;
     private String user_uid;
 
@@ -50,6 +54,7 @@ public class user_index extends Activity {
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
         toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
         toFriends  = (Button) findViewById(R.id.index_bt_toFriend);
+        logout     = (Button) findViewById(R.id.index_bt_logout);
 
 
         toNeighbor.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +81,26 @@ public class user_index extends Activity {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("logout");
+                launchLogout();
+            }
+        });
+
+    }
+
+    private void launchLogout() {
+        // delete from active user
+        String sql_args[] = new String[1];
+        sql_args[0] = user_uid;
+        // execute sql
+        DBOperator.getInstance().execSQL(SQLCommand.Logout, sql_args);
+        // jump to login
+        Intent intent = new Intent(this, user_login.class);
+        startActivity(intent);
     }
 
 

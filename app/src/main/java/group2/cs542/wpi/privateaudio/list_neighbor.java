@@ -121,11 +121,12 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         String tag_context = tag.getText().toString();
 
         // filt query
-        String filt_args[] = new String[4];
-        filt_args[0] = user_name;
-        filt_args[1] = user_name;
+        String filt_args[] = new String[5];
+        filt_args[0] = user_uid;
+        filt_args[1] = user_uid;
         filt_args[2] = tag_context;
         filt_args[3] = distance;
+        filt_args[4] = distance;
         Cursor filt_res = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Filt, filt_args);
 
         // bind the data to list
