@@ -72,7 +72,7 @@ public abstract class SQLCommand {
                                           "and v.longitude - a.longitude <= 2 and a.uid = ? " +
                                           "and u.uid != ?";
     // init get marker locations
-    public static String Neighbor_Marker = "select v.latitude, v.longitude " +
+    public static String Neighbor_Marker = "select u.account, v.latitude, v.longitude " +
                                            "from user u, voice v, active_user a " +
                                            "where u.uid = v.uid and v.latitude - a.latitude <= 2 " +
                                            "and v.longitude - a.longitude <= 2 and a.uid = ? " +
@@ -85,7 +85,7 @@ public abstract class SQLCommand {
                                          "(v.longitude - a.longitude)*(v.longitude - a.longitude)*6400 " +
                                          "<= (? * ?)";
     // filt query neighbor audio
-    public static String Filt_Marker = "select v.latitude, v.longitude " +
+    public static String Filt_Marker = "select u.account, v.latitude, v.longitude " +
                                        "from user u, voice v, active_user a " +
                                        "where u.uid = v.uid and u.uid != ? and a.uid = ? and v.tag = ? " +
                                        "and (v.latitude - a.latitude)*(v.latitude - a.latitude)*10000 + " +

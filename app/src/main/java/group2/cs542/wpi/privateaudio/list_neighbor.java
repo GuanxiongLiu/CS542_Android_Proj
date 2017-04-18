@@ -144,12 +144,14 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         Cursor filt_marker = DBOperator.getInstance().execQuery(SQLCommand.Filt_Marker, filt_args);
         while (filt_marker.moveToNext()) {
             float lat, lng;
+            String acc;
+            acc = filt_marker.getString(filt_marker.getColumnIndex("u.account"));
             lat = Float.parseFloat(filt_marker.getString(filt_marker.getColumnIndex("v.latitude")));
             lng = Float.parseFloat(filt_marker.getString(filt_marker.getColumnIndex("v.longitude")));
             LatLng MarkerLoc = new LatLng(lat, lng);
             mapHandle.addMarker(new MarkerOptions()
                     .position(MarkerLoc)
-                    .title("Initial"));
+                    .title(acc));
 //            mapHandle.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
         }
     }
@@ -259,12 +261,14 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         Cursor init_marker = DBOperator.getInstance().execQuery(SQLCommand.Neighbor_Marker, init_args);
         while (init_marker.moveToNext()) {
             float lat, lng;
+            String acc;
+            acc = init_marker.getString(init_marker.getColumnIndex("u.account"));
             lat = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.latitude")));
             lng = Float.parseFloat(init_marker.getString(init_marker.getColumnIndex("v.longitude")));
             LatLng MarkerLoc = new LatLng(lat, lng);
             mapHandle.addMarker(new MarkerOptions()
                     .position(MarkerLoc)
-                    .title("Initial"));
+                    .title(acc));
 //            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MarkerLoc, (float) 12.0));
         }
     }
