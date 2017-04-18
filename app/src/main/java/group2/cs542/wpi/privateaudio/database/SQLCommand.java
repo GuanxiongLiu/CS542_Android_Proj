@@ -23,9 +23,11 @@ public abstract class SQLCommand {
                                        "from user " +
                                        "where account = ? " +
                                        "and password = ?";
+
     // remove exising active user
     public static String Remove_Act = "delete from active_user " +
                                       "where uid = ?";
+
     // update active user date
     public static String Update_Act = "insert into active_user (uid, time) " +
                                       "values (?, ?)";
@@ -33,6 +35,10 @@ public abstract class SQLCommand {
     // logout
     public static String Logout = "delete from active_user " +
                                   "where uid = ?";
+
+    // register
+    public static String Register = "insert into user (account, password) " +
+                                    "values (?, ?)";
 
     // init query friend audio
     public static String Friend_Audio = "select u2.account as acc, v.vid as _id, v.tag as tag, v.time as time " +

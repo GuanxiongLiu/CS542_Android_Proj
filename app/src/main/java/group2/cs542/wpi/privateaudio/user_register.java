@@ -14,6 +14,9 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import group2.cs542.wpi.privateaudio.database.DBOperator;
+import group2.cs542.wpi.privateaudio.database.SQLCommand;
+
 /**
  * Created by sylor on 3/8/17.
  */
@@ -86,7 +89,7 @@ public class user_register extends Activity {
                     dlgAlert.create().show();
                 }
                 else {
-                    System.out.println("New user added");
+                    registerUser();
                     launchLogin();
                 }
             }
@@ -103,6 +106,12 @@ public class user_register extends Activity {
         });
     }
 
+    private void registerUser() {
+        String register_args[] = new String[2];
+        register_args[0] = user_id.getText().toString();
+        register_args[1] = user_pwd.getText().toString();
+        DBOperator.getInstance().execSQL(SQLCommand.Register, register_args);
+    }
 
     private void launchLogin() {
         Intent intent = new Intent(this, user_login.class);
