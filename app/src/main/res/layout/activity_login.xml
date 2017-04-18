@@ -9,7 +9,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/login_user_id"
+        android:id="@+id/login_user_name"
         android:layout_weight="0.08"
         android:layout_width="300dp"
         android:layout_marginTop="300dp"

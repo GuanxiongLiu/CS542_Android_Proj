@@ -29,7 +29,7 @@ public class user_login extends Activity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private EditText user_id;
+    private EditText user_acc;
     private EditText user_pwd;
     private Button login;
     private Button reset;
@@ -55,7 +55,7 @@ public class user_login extends Activity {
             e.printStackTrace();
         }
 
-        user_id = (EditText) findViewById(R.id.login_user_id);
+        user_acc = (EditText) findViewById(R.id.login_user_name);
         user_pwd = (EditText) findViewById(R.id.login_user_pwd);
         login = (Button) findViewById(R.id.login_bt_login);
         reset = (Button) findViewById(R.id.login_bt_reset);
@@ -75,7 +75,11 @@ public class user_login extends Activity {
                 res.close(); // that's important too, otherwise you're gonna leak cursors
 
                 if (num_match.equals("1")) {
-                    user_name = user_id.getText().toString();
+                    // remove existing active user
+                    String remove_args[] = new String[1];
+                    remove_args[0] = user_uid;
+                    DBOperator.getInstance().execSQL(SQLCommand.Remove_Act, remove_args);
+                    // add new activate user
                     Date date = new Date();
                     String year = String.valueOf(date.getYear()+1900);
                     String month, day;
@@ -114,7 +118,7 @@ public class user_login extends Activity {
 
             @Override
             public void onClick(View v) {
-                user_id.getText().clear();
+                user_acc.getText().clear();
                 user_pwd.getText().clear();
             }
         });
@@ -135,6 +139,7 @@ public class user_login extends Activity {
 
     private void launchIndex() {
         Intent intent = new Intent(this, user_index.class);
+        user_name = user_acc.getText().toString();
         intent.putExtra("User Name", user_name);
         intent.putExtra("User UID", user_uid);
         startActivity(intent);
@@ -143,7 +148,7 @@ public class user_login extends Activity {
     private String[] login_args() {
         String args[] = new String[2];
 
-        args[0] = user_id.getText().toString();
+        args[0] = user_acc.getText().toString();
         args[1] = user_pwd.getText().toString();
 
         return args;

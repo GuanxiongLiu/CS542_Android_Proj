@@ -23,6 +23,9 @@ public abstract class SQLCommand {
                                        "from user " +
                                        "where account = ? " +
                                        "and password = ?";
+    // remove exising active user
+    public static String Remove_Act = "delete from active_user " +
+                                      "where uid = ?";
     // update active user date
     public static String Update_Act = "insert into active_user (uid, time) " +
                                       "values (?, ?)";
