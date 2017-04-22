@@ -15,12 +15,6 @@
         android:textStyle="bold" />
 
     <Button
-        android:text="Check Near By Audio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/index_bt_toNeighbor" />
-
-    <Button
         android:id="@+id/index_bt_toSelfpage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +25,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Check Friend Audio" />
+
+    <Button
+        android:id="@+id/index_bt_toNeighbor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check Near By Audio" />
+
+    <Button
+        android:id="@+id/index_bt_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record Audio" />
 
     <Button
         android:id="@+id/index_bt_logout"

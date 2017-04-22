@@ -30,6 +30,7 @@ public class user_index extends Activity {
     private Button toNeighbor;
     private Button toSelfpage;
     private Button toFriends;
+    private Button record;
     private Button logout;
     private String user_name;
     private String user_uid;
@@ -54,6 +55,7 @@ public class user_index extends Activity {
         toNeighbor = (Button) findViewById(R.id.index_bt_toNeighbor);
         toSelfpage = (Button) findViewById(R.id.index_bt_toSelfpage);
         toFriends  = (Button) findViewById(R.id.index_bt_toFriend);
+        record     = (Button) findViewById(R.id.index_bt_record);
         logout     = (Button) findViewById(R.id.index_bt_logout);
 
 
@@ -81,6 +83,14 @@ public class user_index extends Activity {
             }
         });
 
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("go record");
+                launchRecord();
+            }
+        });
+
         logout.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -90,6 +100,13 @@ public class user_index extends Activity {
             }
         });
 
+    }
+
+    private void launchRecord() {
+        Intent intent = new Intent(this, audio_record.class);
+        intent.putExtra("User Name", user_name);
+        intent.putExtra("User UID", user_uid);
+        startActivity(intent);
     }
 
     private void launchLogout() {
