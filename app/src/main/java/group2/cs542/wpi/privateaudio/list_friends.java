@@ -3,6 +3,7 @@ package group2.cs542.wpi.privateaudio;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -63,7 +64,6 @@ public class list_friends extends Activity {
         selectedAudio = (TextView) findViewById(R.id.friend_tv_selected);
         play = (Button) findViewById(R.id.friend_bt_play);
         pause = (Button) findViewById(R.id.friend_bt_pause);
-        mediaPlayer = new MediaPlayer();
 
         // init query
         String init_args[] = new String[1];
@@ -100,12 +100,9 @@ public class list_friends extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                int resID = getResources().getIdentifier(path, "raw",  getPackageName());
+                mediaPlayer = MediaPlayer.create(list_friends.this, resID);
+                mediaPlayer.start();
             }
         });
 

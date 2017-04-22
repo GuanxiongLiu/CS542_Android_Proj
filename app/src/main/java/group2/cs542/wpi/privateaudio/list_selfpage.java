@@ -101,12 +101,9 @@ public class list_selfpage extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                int resID = getResources().getIdentifier(path, "raw",  getPackageName());
+                mediaPlayer = MediaPlayer.create(list_selfpage.this, resID);
+                mediaPlayer.start();
             }
         });
 

@@ -133,12 +133,9 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                int resID = getResources().getIdentifier(path, "raw",  getPackageName());
+                mediaPlayer = MediaPlayer.create(list_neighbor.this, resID);
+                mediaPlayer.start();
             }
         });
 
