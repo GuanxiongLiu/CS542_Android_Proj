@@ -3,19 +3,24 @@ package group2.cs542.wpi.privateaudio;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Date;
 
 import group2.cs542.wpi.privateaudio.database.DBOperator;
@@ -35,6 +40,11 @@ public class list_selfpage extends Activity {
     private Button filt;
     private EditText tag;
     private DatePicker date;
+    private TextView selectedAudio;
+    private Button play;
+    private Button pause;
+    private MediaPlayer mediaPlayer;
+    private String path;
 
 
     @Override
@@ -51,6 +61,10 @@ public class list_selfpage extends Activity {
         filt = (Button) findViewById(R.id.selfpage_bt_filt);
         tag = (EditText) findViewById(R.id.selfpage_et_tag);
         date = (DatePicker) findViewById(R.id.selfpage_dp);
+        selectedAudio = (TextView) findViewById(R.id.selfpage_tv_selected);
+        play = (Button) findViewById(R.id.selfpage_bt_play);
+        pause = (Button) findViewById(R.id.selfpage_bt_pause);
+        mediaPlayer = new MediaPlayer();
 
         // init query
         String init_args[] = new String[1];
@@ -83,6 +97,27 @@ public class list_selfpage extends Activity {
                 filtResult();
             }
         });
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.pause();
+            }
+        });
+
+        list_view.setOnItemClickListener(new ItemClickListener());
     }
 
     private void filtResult() {
@@ -126,6 +161,16 @@ public class list_selfpage extends Activity {
         intent.putExtra("User Name", user_name);
         intent.putExtra("User UID", user_uid);
         startActivity(intent);
+    }
+
+    class ItemClickListener implements AdapterView.OnItemClickListener {
+        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+            Cursor cursor = (Cursor) list_view.getItemAtPosition(position);
+            selectedAudio.setText(cursor.getString(1));
+            path = cursor.getString(4);
+            play.setVisibility(View.VISIBLE);
+            pause.setVisibility(View.VISIBLE);
+        }
     }
 
 

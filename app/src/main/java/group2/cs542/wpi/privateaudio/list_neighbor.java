@@ -5,18 +5,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -36,6 +40,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
 
 import group2.cs542.wpi.privateaudio.database.DBOperator;
 import group2.cs542.wpi.privateaudio.database.SQLCommand;
@@ -64,6 +70,11 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
     private Button filt;
     private EditText dis;
     private EditText tag;
+    private TextView selectedAudio;
+    private Button play;
+    private Button pause;
+    private MediaPlayer mediaPlayer;
+    private String path;
 
 
     @Override
@@ -94,6 +105,10 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
         filt = (Button) findViewById(R.id.neighbor_bt_filt);
         dis = (EditText) findViewById(R.id.neighbor_et_dis);
         tag = (EditText) findViewById(R.id.neighbor_et_tag);
+        selectedAudio = (TextView) findViewById(R.id.neighbor_tv_selected);
+        play = (Button) findViewById(R.id.neighbor_bt_play);
+        pause = (Button) findViewById(R.id.neighbor_bt_pause);
+        mediaPlayer = new MediaPlayer();
 
         mapF = (MapFragment) getFragmentManager().findFragmentById(R.id.neighbor_map);
         mapF.getMapAsync(this);
@@ -114,6 +129,27 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
                 filtResult();
             }
         });
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.pause();
+            }
+        });
+
+        list_view.setOnItemClickListener(new ItemClickListener());
     }
 
     private void filtResult() {
@@ -300,5 +336,15 @@ public class list_neighbor extends FragmentActivity implements OnMapReadyCallbac
 //        currentMaker = mapHandle.addMarker(new MarkerOptions()
 //                .position(center)
 //                .title("Current"));
+    }
+
+    class ItemClickListener implements AdapterView.OnItemClickListener {
+        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+            Cursor cursor = (Cursor) list_view.getItemAtPosition(position);
+            selectedAudio.setText(cursor.getString(1));
+            path = cursor.getString(4);
+            play.setVisibility(View.VISIBLE);
+            pause.setVisibility(View.VISIBLE);
+        }
     }
 }

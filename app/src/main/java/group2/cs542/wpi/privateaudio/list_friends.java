@@ -3,10 +3,13 @@ package group2.cs542.wpi.privateaudio;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,6 +21,9 @@ import group2.cs542.wpi.privateaudio.database.SQLCommand;
 import group2.cs542.wpi.privateaudio.view.TableView;
 
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+import java.io.IOException;
 
 /**
  * Created by sylor on 3/24/17.
@@ -33,6 +39,11 @@ public class list_friends extends Activity {
     private EditText tag;
     private EditText name;
     private DatePicker date;
+    private TextView selectedAudio;
+    private Button play;
+    private Button pause;
+    private MediaPlayer mediaPlayer;
+    private String path;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +60,10 @@ public class list_friends extends Activity {
         tag = (EditText) findViewById(R.id.friend_et_tag);
         name = (EditText) findViewById(R.id.friend_et_name);
         date = (DatePicker) findViewById(R.id.friends_dp);
+        selectedAudio = (TextView) findViewById(R.id.friend_tv_selected);
+        play = (Button) findViewById(R.id.friend_bt_play);
+        pause = (Button) findViewById(R.id.friend_bt_pause);
+        mediaPlayer = new MediaPlayer();
 
         // init query
         String init_args[] = new String[1];
@@ -81,6 +96,27 @@ public class list_friends extends Activity {
                 filtResult();
             }
         });
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath() + path);
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.pause();
+            }
+        });
+
+        list_view.setOnItemClickListener(new ItemClickListener());
 
     }
 
@@ -127,5 +163,15 @@ public class list_friends extends Activity {
 
         // show result
         list_view.setAdapter(adapter);
+    }
+
+    class ItemClickListener implements AdapterView.OnItemClickListener {
+        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+            Cursor cursor = (Cursor) list_view.getItemAtPosition(position);
+            selectedAudio.setText(cursor.getString(1));
+            path = cursor.getString(4);
+            play.setVisibility(View.VISIBLE);
+            pause.setVisibility(View.VISIBLE);
+        }
     }
 }
