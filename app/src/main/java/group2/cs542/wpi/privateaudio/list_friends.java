@@ -16,7 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
+import android.media.MediaRecorder;
 import group2.cs542.wpi.privateaudio.database.DBOperator;
 import group2.cs542.wpi.privateaudio.database.SQLCommand;
 import group2.cs542.wpi.privateaudio.view.TableView;
@@ -24,6 +24,7 @@ import group2.cs542.wpi.privateaudio.view.TableView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -44,7 +45,9 @@ public class list_friends extends Activity {
     private Button play;
     private Button pause;
     private MediaPlayer mediaPlayer;
+    private MediaRecorder recorder;
     private String path;
+    private String OUTPUT_FILE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class list_friends extends Activity {
         setContentView(R.layout.activity_friends);
         user_name = getIntent().getStringExtra("User Name");
         user_uid = getIntent().getStringExtra("User UID");
+        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/audiorecorder.3gpp";
+
 
         // find element
         list_view = (ListView) findViewById(R.id.friendpage_lv_list);
@@ -114,6 +119,80 @@ public class list_friends extends Activity {
         });
 
         list_view.setOnItemClickListener(new ItemClickListener());
+
+    }
+
+    public void buttonTapped(View view){
+        switch(view.getId()){
+            case R.id.startBtn:
+                try {
+                    beginRecording();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.finishBtn:
+                try {
+                    stopRecording();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.playBtn:
+                try {
+                    playRecording();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void beginRecording() throws IOException {
+        ditchMediaRecorder();
+        File outFile = new File(OUTPUT_FILE);
+
+        if(outFile.exists())
+            outFile.delete();
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(OUTPUT_FILE);
+        recorder.prepare();
+        recorder.start();
+
+    }
+
+    private void stopRecording() {
+        if(recorder != null)
+            recorder.stop();
+    }
+
+    private void playRecording() throws IOException {
+        ditchMediaPlayer();
+        mediaPlayer=new MediaPlayer();
+        mediaPlayer.setDataSource(OUTPUT_FILE);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void ditchMediaRecorder() {
+        if(recorder != null)
+            recorder.release();
+    }
+
+    private void ditchMediaPlayer(){
+        if(recorder != null)
+        {
+            try{
+                recorder.release();
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
 
     }
 
