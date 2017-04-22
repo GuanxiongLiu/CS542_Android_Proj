@@ -2,6 +2,7 @@ package group2.cs542.wpi.privateaudio;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Location;
@@ -53,6 +54,7 @@ public class audio_record extends Activity implements View.OnClickListener,
     private TextView lat;
     private TextView lng;
     private EditText tag;
+    private EditText filename;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class audio_record extends Activity implements View.OnClickListener,
         lat = (TextView) findViewById(R.id.record_tv_lat);
         lng = (TextView) findViewById(R.id.record_tv_lng);
         tag = (EditText) findViewById(R.id.record_et_tag);
+        filename = (EditText) findViewById(R.id.record_et_name);
 
         // set onclick
         start.setOnClickListener(this);
@@ -135,6 +138,20 @@ public class audio_record extends Activity implements View.OnClickListener,
         }
         else if (id == R.id.record_bt_submit) {
             // submit button
+            String insert_args[] = new String[6];
+            insert_args[0] = user_uid;
+            insert_args[1] = tag.getText().toString();
+            insert_args[2] = lat.getText().toString();
+            insert_args[3] = lng.getText().toString();
+            insert_args[4] = date.getText().toString();
+            insert_args[5] = filename.getText().toString();
+
+            DBOperator.getInstance().execSQL(SQLCommand.Insert_Audio, insert_args);
+
+            Intent intent = new Intent(this, user_index.class);
+            intent.putExtra("User Name", user_name);
+            intent.putExtra("User UID", user_uid);
+            startActivity(intent);
         }
     }
 

@@ -99,4 +99,7 @@ public abstract class SQLCommand {
     public static String Update_Loc = "update active_user " +
                                       "set latitude = ?, longitude = ? " +
                                       "where uid = ?";
+    // insert new audio
+    public static String Insert_Audio = "insert into voice(uid, tag, latitude, longitude, time, audio) " +
+                                        "values(?, ?, ?, ?, ?, ?)";
 }
