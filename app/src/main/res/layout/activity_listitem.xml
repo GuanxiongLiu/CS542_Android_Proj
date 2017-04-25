@@ -6,30 +6,38 @@
 
     <TextView
         android:id="@+id/account"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:gravity="center"
-        android:textSize="15sp"/>
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/voiceid"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:gravity="center"
-        android:textSize="15sp"/>
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/voicetag"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
         android:gravity="center"
-        android:textSize="15sp"/>
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/voicetime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:gravity="center"
-        android:textSize="15sp"/>
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
