@@ -56,7 +56,6 @@ public class list_friends extends Activity {
         setContentView(R.layout.activity_friends);
         user_name = getIntent().getStringExtra("User Name");
         user_uid = getIntent().getStringExtra("User UID");
-        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/audiorecorder.3gpp";
 
 
         // find element
@@ -122,79 +121,6 @@ public class list_friends extends Activity {
 
     }
 
-    public void buttonTapped(View view){
-        switch(view.getId()){
-            case R.id.startBtn:
-                try {
-                    beginRecording();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.finishBtn:
-                try {
-                    stopRecording();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.playBtn:
-                try {
-                    playRecording();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
-        }
-    }
-
-    private void beginRecording() throws IOException {
-        ditchMediaRecorder();
-        File outFile = new File(OUTPUT_FILE);
-
-        if(outFile.exists())
-            outFile.delete();
-
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        recorder.setOutputFile(OUTPUT_FILE);
-        recorder.prepare();
-        recorder.start();
-
-    }
-
-    private void stopRecording() {
-        if(recorder != null)
-            recorder.stop();
-    }
-
-    private void playRecording() throws IOException {
-        ditchMediaPlayer();
-        mediaPlayer=new MediaPlayer();
-        mediaPlayer.setDataSource(OUTPUT_FILE);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
-    }
-
-    private void ditchMediaRecorder() {
-        if(recorder != null)
-            recorder.release();
-    }
-
-    private void ditchMediaPlayer(){
-        if(recorder != null)
-        {
-            try{
-                recorder.release();
-            }catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     private void launchIndex() {
         Intent intent = new Intent(this, user_index.class);

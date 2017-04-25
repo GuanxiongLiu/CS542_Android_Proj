@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.os.Environment;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -30,6 +33,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import group2.cs542.wpi.privateaudio.database.DBOperator;
@@ -55,12 +60,17 @@ public class audio_record extends Activity implements View.OnClickListener,
     private TextView lng;
     private EditText tag;
     private EditText filename;
+    private MediaPlayer mediaPlayer;
+    private MediaRecorder recorder;
+    private String OUTPUT_FILE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // set up view
         setContentView(R.layout.activity_record);
+        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/audiorecorder.3gpp";
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -128,13 +138,21 @@ public class audio_record extends Activity implements View.OnClickListener,
         int id = v.getId();
 
         if (id == R.id.record_bt_start) {
-            // start button
+            try {
+                beginRecording();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else if (id == R.id.record_bt_stop) {
-            // stop button
+            stopRecording();
         }
         else if (id == R.id.record_bt_replay) {
-            // replay button
+            try {
+                playRecording();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else if (id == R.id.record_bt_submit) {
             // submit button
@@ -153,6 +171,54 @@ public class audio_record extends Activity implements View.OnClickListener,
             intent.putExtra("User UID", user_uid);
             startActivity(intent);
         }
+    }
+
+    private void beginRecording() throws IOException {
+        ditchMediaRecorder();
+        File outFile = new File(OUTPUT_FILE);
+
+        if(outFile.exists())
+            outFile.delete();
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(OUTPUT_FILE);
+        recorder.prepare();
+        recorder.start();
+
+    }
+
+    private void stopRecording() {
+        if(recorder != null)
+            recorder.stop();
+    }
+
+    private void playRecording() throws IOException {
+        ditchMediaPlayer();
+        mediaPlayer=new MediaPlayer();
+        mediaPlayer.setDataSource(OUTPUT_FILE);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void ditchMediaRecorder() {
+        if(recorder != null)
+            recorder.release();
+    }
+
+    private void ditchMediaPlayer(){
+        if(recorder != null)
+        {
+            try{
+                recorder.release();
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
