@@ -2,7 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friend Recorded Audio"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/maroon"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,43 +21,47 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/account"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voiceid"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voicetag"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voicetime"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:id="@+id/friendpage_lv_list">
 
     </ListView>
@@ -55,7 +70,8 @@
         android:id="@+id/friends_dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08" />
+        android:layout_weight="0.08"
+        android:calendarTextColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +86,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Friend Name" />
+            android:text="Friend Name"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/friend_et_tag"
@@ -79,28 +97,55 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Tag" />
+            android:text="Tag"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/friends_bt_filt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:text="Filter" />
 
         <Button
             android:id="@+id/friends_bt_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:text="Back" />
+
+        <Button
+            android:id="@+id/friend_bt_play"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Play"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/friend_bt_pause"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Pause"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -113,10 +158,10 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Selected Audio ID: "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"/>
 
         <TextView
             android:id="@+id/friend_tv_selected"
@@ -124,30 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/friend_bt_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Play"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/friend_bt_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pause"
-            android:visibility="invisible" />
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 </LinearLayout>
