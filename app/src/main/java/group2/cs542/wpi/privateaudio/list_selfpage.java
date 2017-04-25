@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PersistableBundle;
@@ -64,7 +65,6 @@ public class list_selfpage extends Activity {
         selectedAudio = (TextView) findViewById(R.id.selfpage_tv_selected);
         play = (Button) findViewById(R.id.selfpage_bt_play);
         pause = (Button) findViewById(R.id.selfpage_bt_pause);
-        mediaPlayer = new MediaPlayer();
 
         // init query
         String init_args[] = new String[1];
@@ -101,8 +101,14 @@ public class list_selfpage extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int resID = getResources().getIdentifier(path, "raw",  getPackageName());
-                mediaPlayer = MediaPlayer.create(list_selfpage.this, resID);
+                String AUDIO_FILE = Environment.getExternalStorageDirectory()+"/DemoAudios/"+path;
+                mediaPlayer=new MediaPlayer();
+                try {
+                    mediaPlayer.setDataSource(AUDIO_FILE);
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
             }
         });

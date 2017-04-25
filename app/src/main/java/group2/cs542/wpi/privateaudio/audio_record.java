@@ -163,7 +163,7 @@ public class audio_record extends Activity implements View.OnClickListener,
             insert_args[2] = lat.getText().toString();
             insert_args[3] = lng.getText().toString();
             insert_args[4] = date.getText().toString();
-            insert_args[5] = filename.getText().toString();
+            insert_args[5] = filename.getText().toString()+".3gpp";
 
             DBOperator.getInstance().execSQL(SQLCommand.Insert_Audio, insert_args);
 

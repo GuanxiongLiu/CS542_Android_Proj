@@ -104,8 +104,14 @@ public class list_friends extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int resID = getResources().getIdentifier(path, "raw",  getPackageName());
-                mediaPlayer = MediaPlayer.create(list_friends.this, resID);
+                String AUDIO_FILE = Environment.getExternalStorageDirectory()+"/DemoAudios/"+path;
+                mediaPlayer=new MediaPlayer();
+                try {
+                    mediaPlayer.setDataSource(AUDIO_FILE);
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
             }
         });
