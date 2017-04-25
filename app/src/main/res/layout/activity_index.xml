@@ -1,46 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/index_tv_title"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:text="Welcome"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textColor="@color/maroon"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/index_bt_toSelfpage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Check Self Audio" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="50dp">
 
-    <Button
-        android:id="@+id/index_bt_toFriend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Check Friend Audio" />
+        <Button
+            android:id="@+id/index_bt_toSelfpage"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_button"
+            android:text="Check Self Audio"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/index_bt_toNeighbor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Check Near By Audio" />
+        <Button
+            android:id="@+id/index_bt_toFriend"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_button"
+            android:text="Check Friend Audio"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/index_bt_record"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Record Audio" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/index_bt_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Logout" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="50dp">
+
+        <Button
+            android:id="@+id/index_bt_toNeighbor"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_button"
+            android:text="Check Near By Audio"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/index_bt_record"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_button"
+            android:text="Record Audio"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="50dp">
+
+        <Button
+            android:id="@+id/index_bt_logout"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_button"
+            android:text="Logout"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+
 </LinearLayout>
