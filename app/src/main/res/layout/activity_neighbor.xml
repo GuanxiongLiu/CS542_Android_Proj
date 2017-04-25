@@ -2,7 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Neighbor Recorded Audio"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/maroon"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
 
     <fragment
         android:id="@+id/neighbor_map"
@@ -17,36 +28,40 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/account"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voiceid"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voicetag"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/voicetime"
             android:textColor="#FF00FF"
-            android:textSize="15sp" />
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -54,7 +69,7 @@
     <ListView
         android:id="@+id/neighborpage_lv_list"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="150dp">
 
     </ListView>
 
@@ -69,9 +84,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Distance in KM" />
+            android:text="Distance in KM"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/neighbor_et_tag"
@@ -79,31 +96,57 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Tag" />
+            android:text="Tag"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:gravity="center"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.48"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/neighbor_bt_filt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:text="Filter" />
 
         <Button
             android:id="@+id/neighbor_bt_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:text="Back" />
+
+        <Button
+            android:id="@+id/neighbor_bt_play"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Play"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/neighbor_bt_pause"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Pause"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout
@@ -115,10 +158,10 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Selected Audio ID: "
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"/>
 
         <TextView
             android:id="@+id/neighbor_tv_selected"
@@ -126,30 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/neighbor_bt_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Play"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/neighbor_bt_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pause"
-            android:visibility="invisible" />
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
 </LinearLayout>
