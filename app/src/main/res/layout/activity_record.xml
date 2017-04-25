@@ -183,4 +183,13 @@
             android:textStyle="bold"
             android:text="Submit" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/record_tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:layout_gravity="center"/>
 </LinearLayout>

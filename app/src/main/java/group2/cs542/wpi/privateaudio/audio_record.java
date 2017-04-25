@@ -58,6 +58,7 @@ public class audio_record extends Activity implements View.OnClickListener,
     private TextView date;
     private TextView lat;
     private TextView lng;
+    private TextView status;
     private EditText tag;
     private EditText filename;
     private MediaPlayer mediaPlayer;
@@ -69,7 +70,6 @@ public class audio_record extends Activity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         // set up view
         setContentView(R.layout.activity_record);
-        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/audiorecorder.3gpp";
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -92,6 +92,7 @@ public class audio_record extends Activity implements View.OnClickListener,
         date = (TextView) findViewById(R.id.record_tv_date);
         lat = (TextView) findViewById(R.id.record_tv_lat);
         lng = (TextView) findViewById(R.id.record_tv_lng);
+        status = (TextView) findViewById(R.id.record_tv_status);
         tag = (EditText) findViewById(R.id.record_et_tag);
         filename = (EditText) findViewById(R.id.record_et_name);
 
@@ -175,6 +176,7 @@ public class audio_record extends Activity implements View.OnClickListener,
 
     private void beginRecording() throws IOException {
         ditchMediaRecorder();
+        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/"+filename.getText().toString()+".3gpp";
         File outFile = new File(OUTPUT_FILE);
 
         if(outFile.exists())
@@ -187,12 +189,13 @@ public class audio_record extends Activity implements View.OnClickListener,
         recorder.setOutputFile(OUTPUT_FILE);
         recorder.prepare();
         recorder.start();
-
+        status.setText("Start Recording ...");
     }
 
     private void stopRecording() {
         if(recorder != null)
             recorder.stop();
+        status.setText("Recording Stopped");
     }
 
     private void playRecording() throws IOException {
@@ -201,6 +204,7 @@ public class audio_record extends Activity implements View.OnClickListener,
         mediaPlayer.setDataSource(OUTPUT_FILE);
         mediaPlayer.prepare();
         mediaPlayer.start();
+        status.setText("Replay Recording");
     }
 
     private void ditchMediaRecorder() {
