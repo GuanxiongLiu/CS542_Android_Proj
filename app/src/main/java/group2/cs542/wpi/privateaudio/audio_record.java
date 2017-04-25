@@ -176,7 +176,7 @@ public class audio_record extends Activity implements View.OnClickListener,
 
     private void beginRecording() throws IOException {
         ditchMediaRecorder();
-        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/"+filename.getText().toString()+".3gpp";
+        OUTPUT_FILE= Environment.getExternalStorageDirectory()+"/DemoAudios/"+filename.getText().toString()+".3gpp";
         File outFile = new File(OUTPUT_FILE);
 
         if(outFile.exists())
