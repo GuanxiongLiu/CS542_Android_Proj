@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Registration"
+        android:textStyle="bold"
+        android:textColor="@color/maroon"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"/>
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="User Name"
+        android:textStyle="bold"
         android:ems="10"
         android:id="@+id/register_user_id"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:text="Password:"
+        android:id="@+id/desc_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/desc_pwd"
-        android:textStyle="normal|bold"
-        android:textSize="18sp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:text="Password:"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <EditText
         android:layout_width="300dp"
@@ -38,8 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/desc_pwd_re"
-        android:textStyle="normal|bold"
-        android:textSize="18sp"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:layout_marginTop="50dp" />
 
     <EditText
@@ -55,19 +69,26 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
 
         <Button
             android:text="Submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:id="@+id/register_bt_submit"
             android:layout_weight="1" />
 
         <Button
             android:text="Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/red_button"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:id="@+id/register_bt_reset"
             android:layout_weight="1" />
     </LinearLayout>
